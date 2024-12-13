@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../AuthProviver';
+import { useNavigate } from 'react-router-dom';
 
 const AddaJob = () => {
+
+  let {user}= useContext(AuthContext)
+
+  let nav= useNavigate(AuthContext)
   const handleSubmit = (e) => {
+
     e.preventDefault();
 
     // Collecting data using e.target.name.value
@@ -30,16 +37,23 @@ const AddaJob = () => {
     console.log(formData);
 
     // Example POST request using fetch
-    // fetch('/api/jobs', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(formData),
-    // })
-    //   .then(response => response.json())
-    //   .then(data => console.log('Job posted:', data))
-    //   .catch(error => console.error('Error:', error));
+     fetch('http://localhost:3000/jobs', {
+       method: 'POST',
+       headers: {
+         'Content-Type': 'application/json',
+       },
+       body: JSON.stringify(formData),
+     })
+       .then(response => response.json())
+       .then(data => {
+        console.log('Job posted:', data)
+        nav("/mypostedjobs")
+
+
+      })
+       
+        
+       
   };
 
   return (
@@ -183,6 +197,7 @@ const AddaJob = () => {
           <label className="block text-sm font-medium text-gray-700">HR Email</label>
           <input
             name="hrEmail"
+            defaultValue={user.email}
             type="email"
             className="w-full p-2 border border-gray-300 rounded"
             required

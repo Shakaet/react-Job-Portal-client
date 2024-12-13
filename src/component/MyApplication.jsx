@@ -13,6 +13,24 @@ const MyApplication = () => {
         .then(res=>res.json())
         .then(data=>setData(data))
     },[user])
+
+    let handleDelete=(id)=>{
+      alert(id)
+      fetch(`http://localhost:3000/jobs-application/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((datar) => {
+          console.log(datar)
+          let filterData= data.filter((item)=>item._id !== id)
+          setData(filterData)
+
+
+        });
+      
+
+     
+    }
     return (
         <div className="overflow-x-auto">
         <table className="table w-full">
@@ -47,9 +65,7 @@ const MyApplication = () => {
                   </a>
                 </td>
                 <td>
-                  <a href={job.resume} target="_blank" rel="noopener noreferrer">
-                    Resume
-                  </a>
+                  <button onClick={()=>handleDelete(job._id)} className='btn btn-error'>Delete</button>
                 </td>
               </tr>
             ))}

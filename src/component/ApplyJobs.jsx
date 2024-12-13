@@ -1,11 +1,14 @@
 import React, { useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import {  useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../AuthProviver';
 
 const ApplyJobs = () => {
 
    let {id}=  useParams()
    console.log(id)
+
+   const link = useNavigate();
+  
 
    let {user}= useContext(AuthContext)
 
@@ -35,6 +38,7 @@ const ApplyJobs = () => {
         .then((response) => response.json()) // Parse the JSON response
         .then((data) => {
           console.log('Success:', data); // Handle success
+          link("/myApplication")
         })
 
    }
