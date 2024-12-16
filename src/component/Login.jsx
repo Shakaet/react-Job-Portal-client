@@ -35,10 +35,10 @@ const Login = () => {
          handleLogins(email,password)
          .then(res=>{
             alert("login successful",res.user)
-            let user={email:email}
+            // let user={email:email}
 
-            axios.post("http://localhost:3000/jwt",user,{withCredentials:true})
-            .then(data=>console.log(data.data))
+            // axios.post("http://localhost:3000/jwt",user,{withCredentials:true})
+            // .then(data=>console.log(data.data))
 
 
 
