@@ -4,6 +4,7 @@ import React, { useContext } from 'react';
 import login from "../assets/lottie/Animation - 1733847677345.json"
 import { AuthContext } from '../AuthProviver';
 import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
 
@@ -33,7 +34,14 @@ const Login = () => {
 
          handleLogins(email,password)
          .then(res=>{
-            alert("login successful")
+            alert("login successful",res.user)
+            let user={email:email}
+
+            axios.post("http://localhost:3000/jwt",user,{withCredentials:true})
+            .then(data=>console.log(data.data))
+
+
+
             navigate(from, { replace: true });
          })
          .catch(error=>{

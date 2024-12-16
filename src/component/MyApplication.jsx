@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../AuthProviver';
+import axios from 'axios';
 
 const MyApplication = () => {
 
@@ -9,9 +10,14 @@ const MyApplication = () => {
     let [data,setData] =useState([])
 
     useEffect(()=>{
-        fetch(`http://localhost:3000/jobs-application?email=${user.email}`)
-        .then(res=>res.json())
-        .then(data=>setData(data))
+        // fetch(`http://localhost:3000/jobs-application?email=${user.email}`)
+        // .then(res=>res.json())
+        // .then(data=>setData(data))
+
+
+
+        axios.get(`http://localhost:3000/jobs-application?email=${user.email}`,{withCredentials:true})
+        .then(res=>setData(res.data))
     },[user])
 
     let handleDelete=(id)=>{
