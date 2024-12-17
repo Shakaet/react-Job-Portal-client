@@ -1,10 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../AuthProviver';
 import axios from 'axios';
+import UseAxios from './UseAxios';
 
 const MyApplication = () => {
 
     let {user}= useContext(AuthContext)
+
+    let axiosInstance=UseAxios()
 
 
     let [data,setData] =useState([])
@@ -16,9 +19,13 @@ const MyApplication = () => {
 
 
 
-        axios.get(`http://localhost:3000/jobs-application?email=${user.email}`,{withCredentials:true})
+        // axios.get(`http://localhost:3000/jobs-application?email=${user.email}`,{withCredentials:true})
+        // .then(res=>setData(res.data))
+
+        axiosInstance.get(`/jobs-application?email=${user.email}`)
         .then(res=>setData(res.data))
-    },[user])
+        
+    },[axiosInstance, user.email])
 
     let handleDelete=(id)=>{
       alert(id)
